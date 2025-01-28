@@ -15,6 +15,8 @@
 -- - Everything you need to do in this assignment is marked with TODO!
 -- - Note rubric explanation for appropriate use of external resources.
 
+
+
 -- User stories
 --
 -- - As a guest, I want to see a list of movies with the title, year released,
@@ -54,9 +56,56 @@
 -- - Follow best practices for table and column names
 -- - Use correct data column types (i.e. TEXT/INTEGER)
 -- - Use of the `model_id` naming convention for foreign key columns
+DROP TABLE IF EXISTS KDMB;
+DROP TABLE IF EXISTS studios;
+
+ALTER TABLE KMDB 
+Add foreign key studio
+REFERENCES stuios(studio_id);
+
+ALTER TABLE casts 
+Add foreign key movie_id 
+REFERENCES KMDB(id)
+
+ALTER TABLE casts 
+Add foreign key actors(actor_id)
+;
 -- 3. Insertion of data (INSERT statements) - 4 points
 -- - Insert data into all the tables you've created
 -- - It actually works, i.e. proper INSERT syntax
+
+
+INSERT INTO KMDB (
+  movie_title,
+  year_released,
+  MPPA_rating,
+  studio
+)
+VALUES 
+("Batman Begins","2025", "PG-13", "Warner Bros"),
+("The Dark Knight","2008", "PG-13", "Warner Bros"),
+("The Dark Knight Rises","2012", "PG-13", "Warner Bros");
+
+INSERT INTO actors (
+    actor_name
+)
+VALUES 
+( "Christian Bale" )
+( "Michael Caine")         
+( " Liam Neeson ")"
+( " Katie Holmes ")
+( "  Gary Oldman ")
+( " Christian Bale ")
+( "   Heath Ledger  ")
+( "   Aaron Eckhart ")
+( "   Michael Caine ")
+( " Maggie Gyllenhaal") 
+( " Christian Bale ")
+( "  Gary Oldman ")
+( "  Tom Hardy ")
+( "Joseph Gordon-Levitt")
+( " Anne Hathaway")
+
 -- 4. "The report" (SELECT statements) - 6 points
 -- - Write 2 `SELECT` statements to produce something similar to the
 --   sample output below - 1 for movies and 1 for cast. You will need

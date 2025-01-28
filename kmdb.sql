@@ -56,61 +56,108 @@
 -- - Follow best practices for table and column names
 -- - Use correct data column types (i.e. TEXT/INTEGER)
 -- - Use of the `model_id` naming convention for foreign key columns
-DROP TABLE IF EXISTS KDMB;
+DROP TABLE IF EXISTS KMDB;
 DROP TABLE IF EXISTS studios;
+DROP TABLE IF EXISTS actors;
+DROP TABLE IF EXISTS role_play;
 
-ALTER TABLE KMDB 
-Add foreign key studio
-REFERENCES stuios(studio_id);
+CREATE TABLE KMDB(
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  movie_title TEXT,
+  year_released TEXT,
+  MPAA_rating TEXT,
+  studio_id INTEGER 
+);
 
-ALTER TABLE casts 
-Add foreign key movie_id 
-REFERENCES KMDB(id)
+CREATE TABLE studios(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    name TEXT
+);
 
-ALTER TABLE casts 
-Add foreign key actors(actor_id)
-;
+CREATE TABLE actors(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    name TEXT
+);
+
+CREATE TABLE role_play(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    movie_id INTEGER,
+    actor_id INTEGER, 
+    role_name TEXT
+);
+
+
 -- 3. Insertion of data (INSERT statements) - 4 points
 -- - Insert data into all the tables you've created
 -- - It actually works, i.e. proper INSERT syntax
 
 
-INSERT INTO KMDB (
+INSERT INTO KMDB(
   movie_title,
   year_released,
-  MPPA_rating,
-  studio
+  MPAA_rating,
+  studio_id
 )
 VALUES 
-("Batman Begins","2025", "PG-13", "Warner Bros"),
-("The Dark Knight","2008", "PG-13", "Warner Bros"),
-("The Dark Knight Rises","2012", "PG-13", "Warner Bros");
+("Batman Begins", "2025", "PG-13", "Warner Bros"),
+("The Dark Knight", "2008", "PG-13", "Warner Bros"),
+("The Dark Knight Rises", "2012", "PG-13", "Warner Bros");
+
+INSERT INTO studios (
+    name
+)
+VALUES
+("Warner Bros");
+
 
 INSERT INTO actors (
-    actor_name
+    name
 )
 VALUES 
-( "Christian Bale" )
-( "Michael Caine")         
-( " Liam Neeson ")"
-( " Katie Holmes ")
-( "  Gary Oldman ")
-( " Christian Bale ")
-( "   Heath Ledger  ")
-( "   Aaron Eckhart ")
-( "   Michael Caine ")
-( " Maggie Gyllenhaal") 
-( " Christian Bale ")
-( "  Gary Oldman ")
-( "  Tom Hardy ")
-( "Joseph Gordon-Levitt")
-( " Anne Hathaway")
+("Christian Bale"),
+("Michael Caine"),         
+("Liam Neeson"),
+("Katie Holmes"),
+("Gary Oldman"),
+("Christian Bale"),
+("Heath Ledger"),
+("Aaron Eckhart"),
+("Michael Caine"),
+("Maggie Gyllenhaal"), 
+("Christian Bale"),
+("Gary Oldman"),
+("Tom Hardy"),
+("Joseph Gordon-Levitt"),
+("Anne Hathaway");
+
+INSERT INTO role_play(
+    movie_id, actor_id, role_name
+    )
+VALUES
+("Batman Begins", "Christian Bale", "Bruce Wayne"),
+("Batman Begins", "Michael Caine", "Alfred"),
+("Batman Begins", "Liam Neeson", "Ra's Al Ghul"),
+("Batman Begins", "Katie Holmes", "Rachel Dawes"),
+("Batman Begins", "Gary Oldman", "Commissioner Gordon"),
+("The Dark Knight", "Christian Bale", "Bruce Wayne"),
+("The Dark Knight", "Heath Ledger", "Joker"),
+("The Dark Knight", "Aaron Eckhart", "Harvey Dent"),
+("The Dark Knight", "Michael Caine", "Alfred"),
+("The Dark Knight", "Maggie Gyllenhaal", "Rachel Dawes"),
+("The Dark Knight Rises", "Christian Bale", "Bruce Wayne"),
+("The Dark Knight Rises", "Gary Oldman", "Commissioner Gordon"),
+("The Dark Knight Rises", "Tom Hardy", "Bane"),
+("The Dark Knight Rises", "Joseph Gordon-Levitt", "John Blake"),
+("The Dark Knight Rises", "Anne Hathaway", "Selina Kyle");
 
 -- 4. "The report" (SELECT statements) - 6 points
 -- - Write 2 `SELECT` statements to produce something similar to the
 --   sample output below - 1 for movies and 1 for cast. You will need
 --   to read data from multiple tables in each `SELECT` statement.
 --   Formatting does not matter.
+
+
+
 -- 5. Using external resources for help with the assignment (including colleagues, AI, internet search, etc):
 -- - Engineers look to colleagues and the internet all the time when building software.
 --   You are welcome to do the same. However, the solution you submit must utilize
@@ -172,6 +219,7 @@ VALUES
 -- Prints a header for the movies output
 .print "Movies"
 .print "======"
+SELECT movie_title, year_released, MPAA_rating, studio_id FROM KMDB; 
 .print ""
 
 -- The SQL statement for the movies output
@@ -181,6 +229,7 @@ VALUES
 .print ""
 .print "Top Cast"
 .print "========"
+SELECT movie_id, actor_id, role_name FROM role_play;
 .print ""
 
 
